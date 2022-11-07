@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('guest', function (Request $request) {
-            return Limit::perMinute(config('fileapi.max_requests_guest'));
+            return Limit::perMinute(intval(config('fileapi.max_requests_guests')));
         });
     }
 }

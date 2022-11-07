@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator; 
-use App\Models\User;
+use App\Models\User; 
+
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\LoginUserRequest;
+
 
 class AuthController extends Controller
 {
@@ -17,29 +21,15 @@ class AuthController extends Controller
      * @param Request $request
      * @return User 
      */
-    public function createUser(Request $request)
+    public function createUser(CreateUserRequest $request)
     {
         try {
-            //Validated
-            $validateUser = Validator::make($request->all(), 
-            [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required'
-            ]);
-
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Error en algunos campos',
-                    'errors' => $validateUser->errors()
-                ], 422);
-            }
+            $validatedData = $request->validated();
 
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password'])
             ]);
 
             return response()->json([
@@ -61,24 +51,12 @@ class AuthController extends Controller
      * @param Request $request
      * @return User
      */
-    public function loginUser(Request $request)
+    public function loginUser(LoginUserRequest $request)
     {
         try {
-            $validateUser = Validator::make($request->all(), 
-            [
-                'email' => 'required|email',
-                'password' => 'required'
-            ]);
-
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Error en algunos campos',
-                    'errors' => $validateUser->errors()
-                ], 422);
-            }
-
-            if(!Auth::attempt($request->only(['email', 'password']))){
+            $validatedData = $request->validated();
+           
+            if(!Auth::attempt($validatedData)){
                 return response()->json([
                     'status' => false,
                     'message' => 'Credenciales invalidas',

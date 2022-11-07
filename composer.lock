@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34b43b5a155a8e5e735029b3c9ff4ff1",
+    "content-hash": "6d2542d9e74e5dbed487a060dd28e05a",
     "packages": [
         {
             "name": "brick/math",
@@ -6565,6 +6565,66 @@
                 }
             ],
             "time": "2022-10-28T06:00:21+00:00"
+        },
+        {
+            "name": "salmanzafar/laravel-api-exceptions-handler",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/salmanzafar949/laravel-api-exceptions-handler.git",
+                "reference": "11446b4b0319401ffa99aa64479cdfbd5df0bc13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/salmanzafar949/laravel-api-exceptions-handler/zipball/11446b4b0319401ffa99aa64479cdfbd5df0bc13",
+                "reference": "11446b4b0319401ffa99aa64479cdfbd5df0bc13",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3.0"
+            },
+            "require-dev": {
+                "laravel/framework": ">=8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Salman\\ApiExceptionHandler\\ApiExceptionHandlerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Salman\\ApiExceptionHandler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Salman Zafar",
+                    "email": "salmanzafar949@gmail.com"
+                }
+            ],
+            "description": "A Laravel package that makes it easy to handle and customize api exceptions and responses",
+            "support": {
+                "issues": "https://github.com/salmanzafar949/laravel-api-exceptions-handler/issues",
+                "source": "https://github.com/salmanzafar949/laravel-api-exceptions-handler/tree/v1.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/salmanzafar949",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/salmanzafar949",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-04-27T19:50:36+00:00"
         },
         {
             "name": "sebastian/cli-parser",
