@@ -6,8 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-
-class DeleteFileRequest extends FormRequest
+class CreateBulkFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +26,10 @@ class DeleteFileRequest extends FormRequest
     public function rules()
     {
         return [
-           // 'preserve_file' => 'in:true,false'
+            'files' => 'required|array',
+            'files.*' => 'required|mimes:pdf,xlx,csv,json,jpg,jpeg,png,docx,doc,gif|max:'.config('fileapi.max_size_file'),
         ];
     }
-
 
     public function failedValidation(Validator $validator)
     {   

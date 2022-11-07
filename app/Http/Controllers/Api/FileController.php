@@ -7,6 +7,7 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\DeleteFileRequest;
+use App\Http\Requests\CreateBulkFileRequest;
 use App\Http\Resources\FileResource;
 
 use Illuminate\Support\Facades\Storage;
@@ -38,16 +39,40 @@ class FileController extends Controller
         
         $file = $request->file('file');
         $name = $file->hashName();
-
-
         $name = $request->file('file')->store(config('fileapi.folder'));
         $name = explode('/', $name);
 
-
         $file = File::create(['filename' => $name[1], 'mimetype' => $file->getClientMimeType(),'user_id' => auth()->id()]);
 
-
         return response()->json(new FileResource($file), 201); 
+    }
+
+
+    public function bulkUpload(CreateBulkFileRequest $request)
+    {    
+        
+        $files = [];
+
+        if($request->hasfile('files'))
+        {
+            foreach ($request->file('files') as $file) {
+
+                $name = $file->hashName();
+                $name = $file->store(config('fileapi.folder'));
+                $name = explode('/', $name);
+
+                $files[]['filename'] = $name[1];
+                $files[]['mimetype'] = $file->getClientMimeType();
+
+    
+                File::create(['filename' => $name[1], 'mimetype' => $file->getClientMimeType(),'user_id' => auth()->id()]);
+    
+            }
+        }
+        
+
+
+        return response()->json($files, 201); 
     }
 
 
@@ -88,9 +113,12 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function destroy( DeleteFileRequest $request, $id)
+    public function destroy(DeleteFileRequest $request, $id)
+    
     {   
-        $file = File::find($id);
+
+        $file = File::find($id); 
+
 
         if (is_null($file)) {
             return response()->json([
@@ -104,13 +132,14 @@ class FileController extends Controller
                 'status' => false,
                 'message' => 'No estas autorizado para esta accion'
             ], 401);
-        }
-
-        if (!$request->boolean('preserve_file')) {
-            $findFile = config('fileapi.folder') . '\\' . $file->filename;
-            Storage::delete($findFile);
         } 
 
+        $findFile = config('fileapi.folder') . '\\' . $file->filename;
+        
+        // Eliminado Fisico 
+        Storage::delete($findFile);
+        
+        // Eliminado Logico
         $file->delete(); 
 
         return response()->json(null, 204);

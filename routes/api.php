@@ -34,11 +34,12 @@ Route::middleware('auth:sanctum', 'throttle:logged')->group(function () {
     Route::get('files/{id}', [FileController::class, 'show']);
     Route::delete('files/{id}', [FileController::class, 'destroy']);
     Route::post('files', [FileController::class, 'create']);
+    Route::post('files/bulk/', [FileController::class, 'bulkUpload']);
    
 });
 
 Route::fallback(function (){
-    abort(404, 'API resource not found');
+    abort(404, 'API no encontrado');
 });
 
 
