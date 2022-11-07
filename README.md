@@ -10,7 +10,7 @@ Autor: Brayan Cruces
 
 ## Documentación REST API 
 
-[Enlace a la documentación] (https://documenter.getpostman.com/view/284044/2s8YYMmfEk)
+[Enlace a la documentación](https://documenter.getpostman.com/view/284044/2s8YYMmfEk)
 
 
 ### Endpoints abiertos
@@ -36,13 +36,19 @@ Endpoints cerrados que requieren en la cabecera el Bearer Token para funcionar.
 
 
 ✅ Creación de usuario
+
 ✅ Logueo de usuario para obtener Auth Token 
+
 ✅ Subida de ficheros
+
 ✅ Listado de ficheros
+
 ✅ Eliminado de ficheros
+
 ✅ Subida de ficheros de forma masiva (bulk)
 
 ## Requerimientos 
+
 - PHP 8.1 ^
 - Laravel 9 ^
 
@@ -64,7 +70,9 @@ FILES_API_MAX_REQ_PER_MIN_USER=3
 ## Instalación
 
 1- Descargar o importar 
+
 2- Ejecutar: composer install 
+
 3- Ejecutar: php artisan serve
 
  
